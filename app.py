@@ -27,16 +27,16 @@ llm = OpenAI(temperature=0.1, verbose=True)
 embeddings = OpenAIEmbeddings()
 
 # Create and load PDF Loader
-loader = PyPDFLoader('annualreport.pdf')
+loader = PyPDFLoader('bundesverfassung.pdf')
 # Split pages from pdf 
 pages = loader.load_and_split()
 # Load documents into vector database aka ChromaDB
-store = Chroma.from_documents(pages, embeddings, collection_name='annualreport')
+store = Chroma.from_documents(pages, embeddings, collection_name='bundesverfassung')
 
 # Create vectorstore info object - metadata repo?
 vectorstore_info = VectorStoreInfo(
-    name="annual_report",
-    description="a banking annual report as a pdf",
+    name="Federal Constitution",
+    description="Federal Constitution of the Swiss Confederation",
     vectorstore=store
 )
 # Convert the document store into a langchain toolkit
@@ -48,7 +48,7 @@ agent_executor = create_vectorstore_agent(
     toolkit=toolkit,
     verbose=True
 )
-st.title('🦜🔗 GPT Investment Banker')
+st.title('🦜🔗 GPT Bundesverfassung')
 # Create a text input box for the user
 prompt = st.text_input('Input your prompt here')
 
